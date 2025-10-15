@@ -18,7 +18,7 @@ public class TeacherController {
     @GetMapping("/{id}")
     public ResponseEntity<Teacher> getTeacherById(@PathVariable Long id) {
         Optional<Teacher> teacher = teacherRepository.findById(id);
-        return teacher.map(ResponseEntity::ok).orElseGet(ResponseEntity.notFound().build());
+        return teacher.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
     @PostMapping
     public Teacher createTeacher(@RequestBody Teacher teacher) {

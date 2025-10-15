@@ -1,6 +1,6 @@
 package com.example.pilotGroup.controller;
 import com.example.pilotGroup.model.Student;
-import com.example.pilotGroup.repository.StudentRepository;
+import com.example.pilotGroup.repository.studentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -11,7 +11,7 @@ import java.util.Optional;
 @RequestMapping("/students")
 public class StudentController {
     @Autowired
-    private StudentRepository studentRepository;
+    private studentRepository studentRepository;
     @GetMapping
     public List<Student> getAllStudents() {
         return studentRepository.findAll();
@@ -19,7 +19,7 @@ public class StudentController {
     @GetMapping("/{id}")
     public ResponseEntity<Student> getStudentById(@PathVariable Long id) {
         Optional<Student> student = studentRepository.findById(id);
-        return student.map(ResponseEntity::ok).orElseGet(ResponseEntity.notFound().build());
+        return student.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
     @PostMapping
     public Student createStudent(@RequestBody Student student) {
